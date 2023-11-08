@@ -2,7 +2,7 @@
 
 This is an app that provides funny, non-prfessional investment advice.  This app DOES NOT provide real advice.  Always consult real linsenced financial planner for any financial advice.
 
-![Get Investment Advice from a Mob Boss or a Rich Dude](https://github.com/xTonyYu/financial-advice/blob/main/public/advice.gif)
+![Get Investment Advice from a Mob Boss or a Rich Dude](https://github.com/xTonyYu/financial-advice/blob/main/public/advice.mov)
 
 ## Setup
 
