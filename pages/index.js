@@ -1,9 +1,10 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Nunito } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { useState } from 'react'
 import Spinner from '@/components/Spinner'
+import Personas from '@/components/Personas'
+import ExampleQuestions from '@/components/ExampleQuestions'
 
 const font = Nunito({ subsets: ['latin'] })
 
@@ -53,7 +54,11 @@ export default function Home() {
 
   const advice = (result, finishReason) => {
     if (finishReason !== "stop") {
-      return result + "... I've said too much.  I'll zip it."
+      if (isMobBoss) {
+        return result + "... I've said too much.  I'll zip it."
+      }
+
+      return result + "... It's going to be a longer conversation. Let's setup a call."
     } else {
       return result
     }
@@ -68,29 +73,9 @@ export default function Home() {
         <link rel="icon" href="/mafia-boss.svg" />
       </Head>
       <main className={`${styles.main} ${font.className}`}>
-        <h3>Get Your Investment Advice from a Mob Boss!</h3>
+        <h3>Get Your Investment Advice from a...</h3>
         <form onSubmit={onSubmit}>
-          <Image
-            src="/mafia-boss.svg"
-            alt="Mob boss image"
-            className={styles.boss}
-            width={200}
-            height={96}
-            priority
-          />
-          <Image
-            src="/rich-person.svg"
-            alt="Rich person image"
-            className={styles.richperson}
-            width={200}
-            height={96}
-            priority
-          />
-          <input
-            type="checkbox" name="isMobBoss" value="true"
-            checked={isMobBoss}
-            onClick={() => setIsMobBoss(!isMobBoss)}
-          />
+          <Personas isMobBoss={isMobBoss} setIsMobBoss={setIsMobBoss} />
           <input
             type="text"
             name="investmentQuestion"
@@ -98,6 +83,7 @@ export default function Home() {
             value={investmentQuestion}
             onInput={(e) => setInvestmentQuestion(e.target.value)}
           />
+          <ExampleQuestions />
           <input type="submit" value="Get Advice" />
         </form>
         <div hidden={hideSpinner}>

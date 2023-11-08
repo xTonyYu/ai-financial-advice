@@ -18,20 +18,24 @@
   margin: 16px;
   text-align: center;
 }
+.main h4 {
+  color: #202123;
+  margin: 0;
+}
 .main .boss, .main .richperson {
   margin: 16px 16px 40px;
 }
 .main form {
   display: flex;
   flex-direction: column;
-  width: 320px;
+  width: 380px;
 }
 .main input[type="text"] {
   padding: 12px 16px;
-  border: 1px solid #10a37f;
+  border: 1px solid #289cbf;
   border-radius: 4px;
-  margin-bottom: 24px;
-  outline-color: #10a37f;
+  margin-bottom: 12px;
+  outline-color: #289cbf;
 }
 .main ::placeholder {
   color: #8e8ea0;
@@ -40,7 +44,7 @@
 .main input[type="submit"] {
   padding: 12px 0;
   color: #fff;
-  background-color: #10a37f;
+  background-color: #289cbf;
   border: none;
   border-radius: 4px;
   text-align: center;
@@ -49,5 +53,6 @@
 .main .result {
   font-weight: bold;
   margin: 40px;
+  max-width: 650px;
 }
 
