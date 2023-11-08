@@ -1,18 +1,21 @@
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
+import Image from 'next/image'
+import { Nunito } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { useState } from 'react'
+import Spinner from '@/components/Spinner'
 
-const inter = Inter({ subsets: ['latin'] })
+const font = Nunito({ subsets: ['latin'] })
 
 export default function Home() {
   const [investmentQuestion, setInvestmentQuestion] = useState("")
   const [hideSpinner, setHideSpinner] = useState(true)
   const [result, setResult] = useState("")
+  const [isMobBoss, setIsMobBoss] = useState(true)
+
 
   const onSubmit = async(e) => {
     e.preventDefault()
-    console.log(investmentQuestion)
 
     try {
       setHideSpinner(false)
@@ -23,9 +26,12 @@ export default function Home() {
       if (resp.status !== 200) {
         throw data.error || new Error(`Request failed. Status: ${resp.status}`)
       }
-      setResult(data.result)
+
+      const theAdvice = advice(data.result, data.finishReason)
+
+      setResult(theAdvice)
       setHideSpinner(true)
-      // setInvestmentQuestion("")
+      setInvestmentQuestion("")
     } catch(error) {
       setHideSpinner(true)
       console.error(error)
@@ -39,10 +45,18 @@ export default function Home() {
       headers: {
         "Content-type": "application/json"
       },
-      body: JSON.stringify({ investmentQuestion: investmentQuestion })
+      body: JSON.stringify({ investmentQuestion: investmentQuestion, isMobBoss: isMobBoss })
     })
 
     return resp;
+  }
+
+  const advice = (result, finishReason) => {
+    if (finishReason !== "stop") {
+      return result + "... I've said too much.  I'll zip it."
+    } else {
+      return result
+    }
   }
 
   return (
@@ -51,11 +65,32 @@ export default function Home() {
         <title>Financial Advice</title>
         <meta name="description" content="So-so financial advice app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/mafia-boss.svg" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
+      <main className={`${styles.main} ${font.className}`}>
         <h3>Get Your Investment Advice from a Mob Boss!</h3>
         <form onSubmit={onSubmit}>
+          <Image
+            src="/mafia-boss.svg"
+            alt="Mob boss image"
+            className={styles.boss}
+            width={200}
+            height={96}
+            priority
+          />
+          <Image
+            src="/rich-person.svg"
+            alt="Rich person image"
+            className={styles.richperson}
+            width={200}
+            height={96}
+            priority
+          />
+          <input
+            type="checkbox" name="isMobBoss" value="true"
+            checked={isMobBoss}
+            onClick={() => setIsMobBoss(!isMobBoss)}
+          />
           <input
             type="text"
             name="investmentQuestion"
@@ -65,10 +100,10 @@ export default function Home() {
           />
           <input type="submit" value="Get Advice" />
         </form>
-        <div className={styles.result}>
-          <div className="spinner" hidden={hideSpinner}>
-            <div>Don&apos;t rush me! Let me think...</div>
-          </div>
+        <div hidden={hideSpinner}>
+          <Spinner message="Don&apos;t rush me! Let me think..." />
+        </div>
+        <div className={styles.result} hidden={!hideSpinner}>
           {result}
         </div>
       </main>
