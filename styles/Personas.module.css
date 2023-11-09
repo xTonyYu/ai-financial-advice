@@ -12,12 +12,12 @@
   align-items: center;
   font-weight: bold;
 }
-/* .personas .images {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-} */
+.personas .glow {
+  border-radius: 30%;
+  box-shadow:
+    inset 0px 0px 40px 10px yellow,
+    0px 0px 40px 10px yellow;
+}
 
 .personas input {
   position: relative;
