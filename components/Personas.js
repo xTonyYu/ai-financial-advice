@@ -1,28 +1,26 @@
 import Image from 'next/image'
 import styles from '@/styles/Personas.module.css'
-import { useEffect } from 'react';
 
 export default function Personas({isMobBoss, setIsMobBoss}) {
-  useEffect(() => {
-    const selectAdvicer = () => {
-      const boss = document.querySelector(".boss")
-      const richPerson = document.querySelector(".richperson")
+  const selectAdvicer = () => {
+    const boss = document.querySelector(".boss")
+    const richPerson = document.querySelector(".richperson")
+    const prevSelection = isMobBoss
 
-      if (isMobBoss) {
-        boss.classList.add(`${styles.glow}`)
-        richPerson.classList.remove(`${styles.glow}`)
-      } else {
-        boss.classList.remove(`${styles.glow}`)
-        richPerson.classList.add(`${styles.glow}`)
-      }
-    };
+    setIsMobBoss(!isMobBoss)
 
-    selectAdvicer();
-  }, [isMobBoss]);
+    if (prevSelection) {
+      boss.classList.remove(`${styles.glow}`)
+      richPerson.classList.add(`${styles.glow}`)
+    } else {
+      boss.classList.add(`${styles.glow}`)
+      richPerson.classList.remove(`${styles.glow}`)
+    }
+  }
 
   return (
     <div className={styles.personas}>
-      <div className="${styles.persona} boss">
+      <div className={`boss ${styles.glow}`}>
         <div>Mob Boss</div>
         <Image
           src="/mafia-boss.svg"
@@ -37,10 +35,10 @@ export default function Personas({isMobBoss, setIsMobBoss}) {
         <input
           type="checkbox" name="isMobBoss" value="true"
           checked={isMobBoss}
-          onChange={() => setIsMobBoss(!isMobBoss)}
+          onChange={() => selectAdvicer()}
         />
       </div>
-      <div className="${styles.persona} richperson">
+      <div className="richperson">
         <div>Rich Person</div>
         <Image
           src="/rich-person.svg"

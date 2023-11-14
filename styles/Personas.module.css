@@ -4,14 +4,9 @@
   align-items: flex-end;
   margin-bottom: 1rem;
   text-align: center;
-}
-
-.personas .persona {
-  margin-bottom: 0;
-  flex-direction: column;
-  align-items: center;
   font-weight: bold;
 }
+
 .personas .glow {
   border-radius: 30%;
   box-shadow:
