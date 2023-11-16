@@ -1,4 +1,4 @@
-## Get Investment Advice from a Mob Boss or a Rich Dude - using OpenAI API and Next.js with React.
+## Get AI Investment Advice from a Mob Boss or a Rich Dude - using OpenAI API and Next.js with React.
 
 This is an app that provides funny, non-prfessional investment advice.  This app DOES NOT provide real advice.  Always consult real licensed financial planner for any financial advice.
 
